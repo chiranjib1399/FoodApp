@@ -17,6 +17,10 @@ import { TitleComponent } from './components/partials/title/title.component';
 import { NotFoundComponent } from './components/partials/not-found/not-found.component';
 import { LoginPageComponent } from './components/pages/login-page/login-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UserService } from './services/user.service';
+import { ErrorHandlerService } from './services/err-handler.service';
+import { Register } from './components/pages/register/register.componet';
+import { AuthGuard } from './services/auth-guard.service';
 
 
 @NgModule({
@@ -30,7 +34,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     CartPageComponent,
     TitleComponent,
     NotFoundComponent,
-    LoginPageComponent
+    LoginPageComponent,
+    Register
   ],
   imports: [
     BrowserModule,
@@ -39,7 +44,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [FoodService,CartService],
+  providers: [FoodService,CartService,UserService,ErrorHandlerService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

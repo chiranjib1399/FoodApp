@@ -54,3 +54,20 @@ export const sample_tag: any[]=[
 {name: 'Lunch', count: 11},
 {name: 'BreakFast',count: 6}
 ]
+
+export const sample_user: any[]=[
+    {
+        name:"Chiranjib Mohapatra",
+        email:"chiranjib1399@gmail.com",
+        password:"123456",
+        address: "Bhubaneswar",
+        isAdmin: true
+    },
+    {
+        name:"Milan",
+        email:"milan13@gmail.com",
+        password:"12345678",
+        address: "Kendrapara",
+        isAdmin: true
+    }
+]

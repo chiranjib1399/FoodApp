@@ -1,18 +1,18 @@
-const mongoose = require('mongoose');
+import {model, Schema} from 'mongoose';
 
-// export interface Food{
-//     id: string;
-//     name: string;
-//     price: number;
-//     tags: string[];
-//     favorite: boolean;
-//     stars: number;
-//     imageUrl: string;
-//     origins: string[];
-//     cookTime: string;
-// }
-
-export const FoodSchema =new mongoose.Schema({
+export interface Food{
+    id: string;
+    name: string;
+    price: number;
+    tags: string[];
+    favorite: boolean;
+    stars: number;
+    imageUrl: string;
+    origins: string[];
+    cookTime: string;
+}
+export const foodSchema = new Schema<Food>(
+    {
     name:{type:String, require: true},
     price:{type:Number, require: true},
     tags:{type:[String], require: true},
@@ -21,17 +21,16 @@ export const FoodSchema =new mongoose.Schema({
     imageUrl:{type:String, require: true},
     origins:{type:[String], require: true},
     cookTime:{type:String, require: true}
-},
-{
-    toJSON:{
-        virtuals: true
     },
-    toObject:{
-        virtuals: true
-    },
-    timestamps:true
-}
+    {
+        toJSON:{
+            virtuals: true
+        },
+        toObject:{
+            virtuals: true
+        },
+        timestamps:true
+    }
 )
 
-const FoodModel = mongoose.model('Food',FoodSchema)
-module.exports=FoodModel;
+export const foodModel = model<Food>('food', foodSchema);
