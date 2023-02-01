@@ -1,3 +1,4 @@
+import { registerLocaleData } from '@angular/common';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -5,6 +6,7 @@ import { Observable , BehaviorSubject} from 'rxjs';
 import { catchError, first, tap } from 'rxjs/operators';
 import { USER_LOGIN_URL } from '../shared/constants/url';
 import { IUserLogin } from '../shared/interfaces/IUserLogin';
+import { IUserRegister } from '../shared/interfaces/IUserRegister';
 import { User } from '../shared/models/User';
 import { ErrorHandlerService } from './err-handler.service';
 
@@ -57,7 +59,12 @@ export class UserService{
         )
       );
   }
+  registerLocaleData(userRegister:IUserRegister): Observable<User>{
+   return this.http.post<User>(`${this.url}/register`, userRegister);
+  }
 }
+
+
 
 
 

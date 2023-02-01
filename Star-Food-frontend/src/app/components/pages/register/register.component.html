@@ -1,3 +1,20 @@
-<h5>sign up please</h5>
-<h5>Or go to login page</h5>
+<form [formGroup]="signUpForm" (ngSubmit)="signup()">
 
+    <label>Name</label>
+    <input placeholder="Enter name" formControlName="name">
+    <br> <br> 
+    <label>email</label>
+    <input placeholder="Enter email" formControlName="email">
+    <br> <br>
+    <label>Password</label>
+    <input placeholder="Enter password" formControlName="password">
+    <br> <br>
+    <label>Confirm Password</label>
+    <input placeholder="Confirm your password" formControlName="confirmPassword">
+    <br> <br>
+    <label>Enter your address</label>
+    <input placeholder="Enter your address" formControlName="address">
+    <br> <br>
+
+    <button type="submit"> Sign up</button>
+</form>

@@ -2,7 +2,8 @@ import {Router} from 'express'
 import { sample_user } from '../data';
 import asyncHandler from 'express-async-handler';
 import jwt from 'jsonwebtoken';
-import { UserModel } from '../models/user.model';
+import { User, UserModel } from '../models/user.model';
+import bcript from 'bcryptjs'
 
 const router = Router();
 
@@ -17,17 +18,38 @@ router.get("/seed", asyncHandler(
     res.send('seed is Done!');
 }))
 
-router.post("/login",(req,res)=>{
-    const body = req.body;
+router.post("/login", asyncHandler(
+    async (req,res)=>{
     const {email, password} = req.body;
-    const user = sample_user.find(user => user.email === email && user.password === password);
-   if(user){
-   res.send(generateTokenResponce(user));
+    const user = await UserModel.findOne({email, password});
+
+    if(user){
+        res.send(generateTokenResponce(user));
    } else{
     res.status(400).send('User is not find.')
    }
 
-})
+}))
+router.post('/register', asyncHandler(
+    async (req,res)=>{
+        const {name, email, password, address} = req.body;
+        const user = await UserModel.findOne({email});
+        if(user){
+            res.status(400).send('User is already exist please login');
+            return;
+        }
+        const newUser:User ={
+            id:'',
+            name,
+            email: email.toLowerCase(),
+            password: password,
+            address,
+            isAdmin: false
+        }
+        const dbUser = await UserModel.create(newUser);
+        res.send(generateTokenResponce(dbUser));
+    }
+))
 
 const generateTokenResponce = (user:any)=>{
     const token = jwt.sign({
